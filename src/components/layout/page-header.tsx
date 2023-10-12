@@ -10,12 +10,20 @@ import {
 import { Button } from '../ui/button'
 import { useReducer } from 'react'
 import { cn } from '@/lib/utils'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu'
 
 export function PageHeader() {
   const [showSearch, toggleSearch] = useReducer((x) => !x, false)
 
   return (
-    <div className='flex gap-10 lg:gap-20 justify-between px-4 pt-2 mb-6'>
+    <div className='flex gap-10 lg:gap-20 justify-between mb-6'>
       <div
         className={cn(
           'gap-4 items-center flex-shrink-0',
@@ -31,6 +39,7 @@ export function PageHeader() {
       </div>
 
       <form
+        onSubmit={(e) => e.preventDefault()}
         className={cn(
           'flex-grow gap-4 justify-center',
           showSearch ? 'flex' : 'hidden md:flex',
@@ -38,10 +47,10 @@ export function PageHeader() {
       >
         <Button
           type='button'
+          onClick={toggleSearch}
           variant='ghost'
           size='icon'
           className={cn('flex-shrink-0', !showSearch && 'md:hidden')}
-          onClick={toggleSearch}
         >
           <ArrowLeftIcon />
         </Button>
@@ -72,10 +81,10 @@ export function PageHeader() {
         className={cn('flex-shrink-0 md:gap-2', showSearch ? 'hidden' : 'flex')}
       >
         <Button
+          onClick={toggleSearch}
           variant='ghost'
           size='icon'
           className='md:hidden'
-          onClick={toggleSearch}
         >
           <SearchIcon className='h-5' />
         </Button>
@@ -85,10 +94,27 @@ export function PageHeader() {
         <Button variant='ghost' size='icon'>
           <BellIcon />
         </Button>
+        <UserMenu />
+      </div>
+    </div>
+  )
+}
+
+function UserMenu() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='icon'>
           <UserIcon />
         </Button>
-      </div>
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='w-56'>
+        <DropdownMenuLabel className='font-normal'>
+          jordicalafat
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem></DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
