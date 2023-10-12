@@ -1,5 +1,7 @@
 import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { Slot } from '@radix-ui/react-slot'
+import { forwardRef } from 'react'
 
 const buttonVariants = cva(
   'flex items-center justify-center rounded-md transition-colors',
@@ -30,20 +32,23 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ComponentProps<'button'>, VariantProps<typeof buttonVariants> {}
+  extends
+    React.ComponentPropsWithoutRef<'button'>,
+    VariantProps<typeof buttonVariants> {}
 
-function Button(
-  { children, className, variant, size, ...props }: ButtonProps,
-) {
-  return (
-    <button
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    >
-      {children}
-    </button>
-  )
-}
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, className, variant, size, ...props }: ButtonProps, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props}
+      >
+        {children}
+      </button>
+    )
+  },
+)
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }

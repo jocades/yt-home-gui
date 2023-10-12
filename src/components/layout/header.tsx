@@ -5,21 +5,13 @@ import {
   MicIcon,
   SearchIcon,
   UploadIcon,
-  UserIcon,
 } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useReducer } from 'react'
 import { cn } from '@/lib/utils'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
+import { UserMenu } from '../user-menu'
 
-export function PageHeader() {
+export function Header() {
   const [showSearch, toggleSearch] = useReducer((x) => !x, false)
 
   return (
@@ -97,24 +89,5 @@ export function PageHeader() {
         <UserMenu />
       </div>
     </div>
-  )
-}
-
-function UserMenu() {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon'>
-          <UserIcon />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56'>
-        <DropdownMenuLabel className='font-normal'>
-          jordicalafat
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem></DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
   )
 }
