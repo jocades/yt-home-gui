@@ -1,6 +1,8 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { Button } from './ui/button'
-import { useEffect, useReducer, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { useToggle } from '@/hooks/use-toggle'
+import { useTranslate } from '@/hooks/use-translate'
 
 interface CategoryListProps {
   categories: string[]
@@ -16,7 +18,7 @@ export function CategoryList(
   const [showLeftArrow, toggleLeftArrow] = useToggle()
   const [showRightArrow, toggleRightArrow] = useToggle()
 
-  const { translate, translateX } = useTranslate({ x: 300, y: 0 })
+  const { translate, translateX } = useTranslate({ x: 0, y: 0 })
 
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -93,57 +95,4 @@ export function CategoryList(
       )}
     </div>
   )
-}
-
-interface Vector {
-  x: number
-  y: number
-}
-
-interface TranslateAction {
-  type: 'x' | 'y'
-  value: number
-}
-
-function translateReducer(state: Vector, action: TranslateAction): Vector {
-  switch (action.type) {
-    case 'x':
-      return { ...state, x: action.value }
-    case 'y':
-      return { ...state, y: action.value }
-    default:
-      return state
-  }
-}
-
-/**
- * Utility hook to translate in X or Y direction forcing a re-render
- */
-function useTranslate(initialValue: Vector) {
-  const [translate, dispatch] = useReducer(translateReducer, initialValue)
-
-  return {
-    translate,
-    translateX: (value: number) => {
-      dispatch({ type: 'x', value })
-    },
-    translateY: (value: number) => {
-      dispatch({ type: 'y', value })
-    },
-  }
-}
-
-// function useToggle(initialValue = false) {
-//   const [value, toggle] = useReducer(
-//     (s: boolean, x?: boolean) => x ?? !s,
-//     initialValue,
-//   )
-//
-//   return [value, toggle] as const
-// }
-
-function useToggle(initialValue = false) {
-  const [value, setValue] = useState(initialValue)
-
-  return [value, (x?: boolean) => setValue((prev) => x ?? !prev)] as const
 }
