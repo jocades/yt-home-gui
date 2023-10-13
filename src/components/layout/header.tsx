@@ -50,7 +50,7 @@ export function Header() {
           <input
             type='search'
             placeholder='Search'
-            className='w-full px-4 py-1 border rounded-l-full shadow-inner outline-none focus:border-blue-500'
+            className='w-full px-4 py-1 border rounded-l-full bg-background shadow-inner outline-none focus:border-blue-500'
           />
           <Button
             variant='secondary'
