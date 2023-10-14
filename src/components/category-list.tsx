@@ -3,7 +3,6 @@ import { Button } from './ui/button'
 import { useEffect, useRef } from 'react'
 import { useToggle } from '@/hooks/use-toggle'
 import { useTranslate } from '@/hooks/use-translate'
-import { useRenderCount } from '@/hooks/use-render-count'
 
 interface CategoryListProps {
   categories: string[]
@@ -46,9 +45,9 @@ export function CategoryList(
         style={{ transform: `translateX(-${translate.x}px)` }}
         className='flex whitespace-nowrap w-[max-content] gap-3 transition-transform'
       >
-        {categories.map((category, i) => (
+        {categories.map((category) => (
           <Button
-            key={i}
+            key={category}
             onClick={() => onSelect(category)}
             variant={category === selected ? 'default' : 'secondary'}
             className='py-1 px-2.5 rounded-lg whitespace-nowrap text-sm'
@@ -62,8 +61,9 @@ export function CategoryList(
           <Button
             onClick={() => {
               const translationX = translate.x - OFFSET_X
-              if (translationX <= 0) translateX(0)
-              else translateX(translationX)
+              if (translationX <= 0) {
+                translateX(0)
+              } else translateX(translationX)
             }}
             variant='ghost'
             size='icon'
@@ -77,7 +77,9 @@ export function CategoryList(
         <div className='absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-background from-50% to-transparent w-24 h-full flex justify-end'>
           <Button
             onClick={() => {
-              if (!containerRef.current) return
+              if (!containerRef.current) {
+                return
+              }
 
               const fullW = containerRef.current.scrollWidth
               const visibleW = containerRef.current.clientWidth

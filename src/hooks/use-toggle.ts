@@ -3,5 +3,5 @@ import { useState } from 'react'
 export function useToggle(initialValue = false) {
   const [value, setValue] = useState(initialValue)
 
-  return [value, (x?: boolean) => setValue((prev) => x ?? !prev)] as const
+  return [value, (v?: boolean) => setValue((prev) => v ?? !prev)] as const
 }

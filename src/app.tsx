@@ -6,6 +6,7 @@ import { categories, videos } from './assets/data'
 import { ThemeProvider } from './contexts/theme'
 import { useRenderCount } from './hooks/use-render-count'
 import { VideoItem } from './components/video-item'
+import { SideBar } from './components/layout/side-bar'
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0])
@@ -16,9 +17,9 @@ export default function App() {
       <div className='max-h-screen flex flex-col p-2 md:p-4'>
         <Header />
         <div className='grid grid-cols-[auto,1fr] flex-grow overflow-auto'>
-          <div>SIDEBAR</div>
+          <SideBar />
           <div className='overflow-x-hidden px-8 pb-4'>
-            <div className='sticky top-0 z-10 mb-4'>
+            <div className='sticky top-0 z-10 pb-4 bg-background'>
               <CategoryList
                 categories={categories}
                 selected={selectedCategory}
